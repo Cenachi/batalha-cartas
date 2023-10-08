@@ -47,14 +47,14 @@ class Jogador(val nome: String, private val tabuleiro: Tabuleiro, private val ma
                     oponente.tabuleiro.removerMonstro(posicaoOponente)
                     println("${atacante.carta.nome} derrotou ${alvo.carta.nome}.")
                 } else {
-                    // O atacante não conseguiu derrotar o alvo
+                    // Atacante sofreu dano ao atacar o oponente e por isso perdeu pontos
                     pontosJogador -= (alvo.carta.defesa - atacante.carta.ataque)
-                    println("${alvo.carta.nome} defendeu o ataque de ${atacante.carta.nome}.")
+                    println("O jogador $nome sofreu dano ao atacar o oponente e por isso perdeu pontos.")
                 }
             } else if (atacante.carta.ataque > alvo.carta.ataque) {
-                // Atacante derrotou o alvo
+                // Atacante infligiu dano diretamente ao jogador
                 oponente.pontosJogador -= (atacante.carta.ataque - alvo.carta.ataque)
-                println("${atacante.carta.nome} derrotou ${alvo.carta.nome}.")
+                println("${atacante.carta.nome} infligiu dano diretamente aos pontos do jogador oponente.")
             } else if (atacante.carta.ataque == alvo.carta.ataque) {
                 // Ambos os monstros foram derrotados
                 tabuleiro.removerMonstro(posicaoMonstroAtacante)
