@@ -63,7 +63,8 @@ class Jogo(private val jogadores: MutableList<Jogador>, private val baralho: Bar
                         println("${jogadorAtual.nome}, você não possui nenhuma carta de monstro na mão.")
                         println("Você pode comprar uma carta de monstro ou escolher outra ação.")
                     } else {
-                        val cartaParaPosicionar = selecionarCartaDaMão(jogadorAtual, "Selecione um monstro para posicionar:")
+                        val cartaParaPosicionar =
+                            selecionarCartaDaMão(jogadorAtual, "Selecione um monstro para posicionar:")
                         if (cartaParaPosicionar != null && cartaParaPosicionar.tipo == TipoCarta.MONSTRO) {
                             val estadoMonstro = selecionarEstadoDoMonstro()
                             jogadorAtual.colocarMonstroNoTabuleiro(cartaParaPosicionar, estadoMonstro)
@@ -75,13 +76,15 @@ class Jogo(private val jogadores: MutableList<Jogador>, private val baralho: Bar
                 }
 
                 2 -> {
-                    val posicaoDoMonstroNoTabuleiro = selecionarPosicaoDoMonstro(jogadorAtual, "Selecione o monstro para equipar:")
+                    val posicaoDoMonstroNoTabuleiro =
+                        selecionarPosicaoDoMonstro(jogadorAtual, "Selecione o monstro para equipar:")
                     if (posicaoDoMonstroNoTabuleiro != -1) {
                         if (!jogadorAtual.temCartaTipoEquipamento()) {
                             println("${jogadorAtual.nome}, você não possui nenhuma carta de equipamento na mão.")
                             println("Você pode comprar uma carta de equipamento ou escolher outra ação.")
                         } else {
-                            val cartaParaEquipar = selecionarCartaDaMão(jogadorAtual, "Selecione um equipamento para o monstro:")
+                            val cartaParaEquipar =
+                                selecionarCartaDaMão(jogadorAtual, "Selecione um equipamento para o monstro:")
                             if (cartaParaEquipar != null && cartaParaEquipar.tipo == TipoCarta.EQUIPAMENTO) {
                                 jogadorAtual.equiparMonstroComEquipamento(posicaoDoMonstroNoTabuleiro, cartaParaEquipar)
                                 jogadorAtual.getTabuleiro().mostrarTabuleiro()
@@ -96,9 +99,11 @@ class Jogo(private val jogadores: MutableList<Jogador>, private val baralho: Bar
                     if (turno == 1) {
                         println("Você não pode atacar no primeiro turno.")
                     } else if (jogadorAtual.podeAtacar()) {
-                        val posicaoDoMonstroAtacanteNoTabuleiro = selecionarPosicaoDoMonstro(jogadorAtual, "Selecione o monstro atacante:")
+                        val posicaoDoMonstroAtacanteNoTabuleiro =
+                            selecionarPosicaoDoMonstro(jogadorAtual, "Selecione o monstro atacante:")
                         if (posicaoDoMonstroAtacanteNoTabuleiro != -1) {
-                            val atacante = jogadorAtual.getTabuleiro().getPosicoes()[posicaoDoMonstroAtacanteNoTabuleiro]
+                            val atacante =
+                                jogadorAtual.getTabuleiro().getPosicoes()[posicaoDoMonstroAtacanteNoTabuleiro]
 
                             // Verifique o estado "atacouNestaRodada" antes de permitir o ataque
                             if (!atacante.atacouNestaRodada) {
@@ -106,14 +111,19 @@ class Jogo(private val jogadores: MutableList<Jogador>, private val baralho: Bar
                                     val targetPosition =
                                         selecionarPosicaoDoMonstro(oponente, "Selecione o monstro alvo:")
                                     if (targetPosition != -1) {
-                                        jogadorAtual.atacar(oponente, posicaoDoMonstroAtacanteNoTabuleiro, targetPosition)
+                                        jogadorAtual.atacar(
+                                            oponente,
+                                            posicaoDoMonstroAtacanteNoTabuleiro,
+                                            targetPosition
+                                        )
 
                                         // Marque o estado "atacouNestaRodada" como true após o ataque
                                         atacante.atacouNestaRodada = true
                                         jogadorAtual.getTabuleiro().mostrarTabuleiro()
                                     }
                                 } else {
-                                    val damage = jogadorAtual.getTabuleiro().getPosicoes()[posicaoDoMonstroAtacanteNoTabuleiro].carta.ataque
+                                    val damage = jogadorAtual.getTabuleiro()
+                                        .getPosicoes()[posicaoDoMonstroAtacanteNoTabuleiro].carta.ataque
                                     oponente.pontosJogador -= damage
                                     println("${jogadorAtual.nome} infringiu $damage pontos de dano direto a ${oponente.nome}.")
                                 }
@@ -133,15 +143,12 @@ class Jogo(private val jogadores: MutableList<Jogador>, private val baralho: Bar
                 4 -> {
                     val posicaoDoMonstroNoTabuleiro =
                         selecionarPosicaoDoMonstro(jogadorAtual, "Selecione o monstro para alterar o estado:")
-                    if (posicaoDoMonstroNoTabuleiro != -1) {
-                        // Verifique se o jogadorDaVez é igual ao jogador atual
-                        if (jogadorAtual == jogadorDaVez) {
-                            val novoEstadoDoMonstro = selecionarEstadoDoMonstro()
-                            jogadorAtual.mudarEstadoMonstro(posicaoDoMonstroNoTabuleiro, novoEstadoDoMonstro)
-                            jogadorAtual.getTabuleiro().mostrarTabuleiro()
-                        } else {
-                            println("Você só pode mudar o estado do monstro na próxima rodada.")
-                        }
+                    if (posicaoDoMonstroNoTabuleiro != -1 && !jogadorAtual.getTabuleiro().getPosicoes()[posicaoDoMonstroNoTabuleiro].atacouNestaRodada) {
+                        val novoEstadoDoMonstro = selecionarEstadoDoMonstro()
+                        jogadorAtual.mudarEstadoMonstro(posicaoDoMonstroNoTabuleiro, novoEstadoDoMonstro)
+                        jogadorAtual.getTabuleiro().mostrarTabuleiro()
+                    } else {
+                        println("Você só pode mudar o estado do monstro na próxima rodada.")
                     }
                 }
 
