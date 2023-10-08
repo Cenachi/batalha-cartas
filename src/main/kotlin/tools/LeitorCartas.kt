@@ -1,44 +1,53 @@
 package tools
 
-import model.Carta
+import models.Carta
+import models.TipoCarta
 import java.io.File
 import java.io.InputStream
+import java.util.*
 
-class LeitorCartas (){
+class LeitorCartas {
+    companion object {
+        private lateinit var cartas: MutableList<Carta>
 
-    companion object{
-        private lateinit var cartas:List<Carta>
-
-        fun getCartas():List<Carta>{
-            if(!::cartas.isInitialized){
-                /*aqui deve ocorrer a carga das cartas
-                *
-                *Sugiro usar a função map para transformar as String recuperadas do arquivo em objetos do tipo carta
-                */
-                //cartas = lerCartasCSV()
-
-                cartas = lerCartasCSV().map {
-                    val dadosCarta = it.split(";")
-                    Carta(dadosCarta[0], dadosCarta[1], dadosCarta[2].toInt(), dadosCarta[3].toInt(), dadosCarta[4])
-                }
-
-                //Salvando as cartas em um array
-
-
-                println(lerCartasCSV())
+        // Método para obter a lista de cartas, lendo-as a partir do arquivo CSV se ainda não tiverem sido inicializadas.
+        fun getCartas(): MutableList<Carta> {
+            if (!::cartas.isInitialized) {
+                cartas = lerCartasCSV().toMutableList()
             }
-            return cartas.map { it }  //retorna uma replica das cartas
+            return cartas
         }
 
-        private fun lerCartasCSV():List<String>{
-            val streamDados:InputStream = File("cartas.csv").inputStream()
+        // Método privado para ler as cartas a partir de um arquivo CSV e convertê-las em objetos Carta.
+        private fun lerCartasCSV(): List<Carta> {
+            val streamDados: InputStream = File("cartas.csv").inputStream()
             val leitorStream = streamDados.bufferedReader()
-            return leitorStream.lineSequence()
-                .filter { it.isNotBlank() }.toList()
+            val cartas = mutableListOf<Carta>()
 
+            // Lê as linhas do arquivo CSV, converte os dados em objetos Carta e os adiciona à lista de cartas.
+            leitorStream.lineSequence()
+                .filter { it.isNotBlank() } // Ignora linhas em branco
+                .map { linha ->
+                    val dados = linha.split(";")
+                    if (dados.size == 5) {
+                        val nome = dados[0]
+                        val descricao = dados[1]
+                        val tipo = when (dados[4].lowercase(Locale.getDefault())) {
+                            "monstro" -> TipoCarta.MONSTRO
+                            else -> TipoCarta.EQUIPAMENTO
+                        }
+                        val ataque = dados[2].toIntOrNull() ?: 0
+                        val defesa = dados[3].toIntOrNull() ?: 0
+                        Carta(nome, descricao, tipo, ataque, defesa)
+                    } else {
+                        null
+                    }
+                }
+                .filterNotNull()
+                .toList()
+                .also { cartas.addAll(it) }
+
+            return cartas
         }
     }
-
-
-
 }

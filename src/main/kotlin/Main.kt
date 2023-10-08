@@ -1,16 +1,32 @@
+import controllers.JogoController
+import models.*
 import tools.LeitorCartas
+import view.ConsoleView
 
-fun main(args: Array<String>) {
+fun main() {
+    val view = ConsoleView() // Cria uma instância da ConsoleView para interagir com o usuário
+    val baralho = Baralho(LeitorCartas.getCartas()) // Cria um baralho com as cartas obtidas do LeitorCartas
+    val jogadores = mutableListOf<Jogador>()
 
-    /*
-    *leia atentamente o enunciado
-    * você pode criar quantas classes precisar
-    * recomendo que você separe minimamente sua solução em MVC
-    * tente criar uma classe que seja capaz de expressar as regras que serão aplicadas no jogo
-    * tente criar um classe que seja capaz de representar o status atual do jogo
-     */
+    for (i in 1..2) {
+        val nomeJogador = view.lerNomeJogador(i)
+        val cartasDoJogador = mutableListOf<Carta>() // Cria uma lista de cartas vazia
 
-    //veja que o código gera um erro pois as cartas disponíveis ainda não foram inicializadas
-    println(LeitorCartas.getCartas())
+        // Adiciona 5 cartas à lista do jogador
+        for (j in 1..5) {
+            val carta = baralho.puxarCarta()
+            cartasDoJogador.add(carta)
+        }
 
+        // Cria uma instância de Mao para o jogador e passa a lista de cartas
+        val jogador = Jogador(nomeJogador, Tabuleiro(), Mao(cartasDoJogador))
+        jogadores.add(jogador)
+    }
+
+    // Cria uma instância do jogo com os jogadores e o baralho
+    val jogo = Jogo(jogadores, baralho)
+
+    // Cria uma instância do JogoController e inicia o jogo
+    val jogoController = JogoController(jogo, view)
+    jogoController.iniciarJogo()
 }
