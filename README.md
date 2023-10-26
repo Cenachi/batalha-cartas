@@ -2,15 +2,13 @@
 
 **BACHARELADO EM SISTEMAS DE INFORMAÇÃO**
 
-**CARLOS HENRIQUE CENACHI FERREIRA EDUARDO ALESSANDRO SANTANA DE MELO**
+**CARLOS HENRIQUE CENACHI FERREIRA
+<br>
+EDUARDO ALESSANDRO SANTANA DE MELO**
 
 **DOCUMENTAÇÃO: TRABALHO PRÁTICO 2**
 
 **BATALHA DE CARTAS COLECIONÁVEIS**
-
-**CARLOS HENRIQUE CENACHI FERREIRA EDUARDO ALESSANDRO SANTANA DE MELO**
-
-**TRABALHO PRÁTICO 2                 BATALHA DE CARTAS COLECIONÁVEIS**
 
 Documentação apresentada a disciplina de de Programação para Dispositivos Móveis, com o objetivo de apresentar de forma documentada toda a implementação do trabalho realizado, utilizando a linguagem de programação Kotlin.
 
