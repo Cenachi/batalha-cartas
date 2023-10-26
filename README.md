@@ -65,7 +65,9 @@ Como decisão de design, embora saibamos que faz mais sentido a classe **Jogo** 
 
 Iremos iniciar por uma das partes principais que é a leitura do arquivo CSV que contém todas as cartas utilizadas no jogo, a classe **LeitorCartas.kt** está no pacote **tools** do nosso projeto. Essa classe é responsável por ler e processar informações sobre cartas de um arquivo CSV e convertê-las em objetos Carta. Ela possui um método estático **getCartas()** para obter uma lista de cartas, lendo-as do arquivo CSV se ainda não tiverem sido inicializadas.
 
-![](image/Aspose.Words.61b58507-49c9-42b6-8a9d-a5b8a352bd21.002.jpeg)O método estático **getCartas()** é responsável por obter a lista de cartas. Se o objeto cartas não estiver inicializado, ele chama o método privado **lerCartasCSV()** para ler as cartas do arquivo CSV e inicializa a lista cartas.
+![](image/Aspose.Words.61b58507-49c9-42b6-8a9d-a5b8a352bd21.002.jpeg)
+
+O método estático **getCartas()** é responsável por obter a lista de cartas. Se o objeto cartas não estiver inicializado, ele chama o método privado **lerCartasCSV()** para ler as cartas do arquivo CSV e inicializa a lista cartas.
 
 O método **lerCartasCSV()** é usado para realizar a leitura e processamento do arquivo CSV. Ele faz o seguinte:
 
@@ -90,6 +92,7 @@ Antes de continuarmos, uma breve amostra de como o projeto está estruturado.
 Dando sequência, vamos para a classe **ConsoleView** que é responsável por exibir mensagens no console e interagir com o usuário durante a execução do jogo. Ela possui métodos para exibir mensagens, ler o nome do jogador e exibir a pontuação de um jogador.
 
 ![](image/Aspose.Words.61b58507-49c9-42b6-8a9d-a5b8a352bd21.003.jpeg)
+
 
 O método **exibirMensagem(mensagem: String)** é usado para exibir uma mensagem passada como parâmetro. Ele simplesmente imprime a mensagem usando **println()**.
 
@@ -191,7 +194,9 @@ O método **mostrarTabuleiro()** exibe o estado atual do tabuleiro. Ele mostra a
 
 O método **getPosicoes()** permite obter todas as posições atuais do tabuleiro, retornando a lista de objetos **PosicaoTabuleiro**.
 
-![](image/Aspose.Words.61b58507-49c9-42b6-8a9d-a5b8a352bd21.010.jpeg)Para nossa próxima classe temos **Jogador** que representa um jogador no jogo de cartas colecionáveis. Ela contém informações sobre o nome do jogador, seu tabuleiro, sua mão de cartas, sua pontuação e métodos para realizar ações, como descartar cartas, colocar monstros no tabuleiro, equipar monstros com equipamentos, atacar o oponente, mudar o estado de monstros, entre outros.
+![](image/Aspose.Words.61b58507-49c9-42b6-8a9d-a5b8a352bd21.010.jpeg)
+
+Para nossa próxima classe temos **Jogador** que representa um jogador no jogo de cartas colecionáveis. Ela contém informações sobre o nome do jogador, seu tabuleiro, sua mão de cartas, sua pontuação e métodos para realizar ações, como descartar cartas, colocar monstros no tabuleiro, equipar monstros com equipamentos, atacar o oponente, mudar o estado de monstros, entre outros.
 
 ![](image/Aspose.Words.61b58507-49c9-42b6-8a9d-a5b8a352bd21.011.jpeg)
 
